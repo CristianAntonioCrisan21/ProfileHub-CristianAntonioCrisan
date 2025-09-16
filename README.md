@@ -58,6 +58,20 @@ node create_rounded_icon.js
 
 Esto crea iconos del tamaño adecuado con esquinas redondeadas estilo macOS para el Dock.
 
+## 📸 Capturas de Pantalla
 
-INICIAR PROGRAMA
-npm run dev:electron
+<div align="center">
+
+![Interfaz Principal](Screenshot%202025-09-16%20at%2020.02.03.png)
+*Interfaz principal de ProfileHub*
+
+![Gestión de Perfiles](Screenshot%202025-09-16%20at%2020.52.26.png)
+*Creación y gestión de perfiles*
+
+![Selección de Apps](Screenshot%202025-09-16%20at%2020.52.43.png)
+*Botón buscar para seleccionar aplicaciones*
+
+![Perfil Completo](Screenshot%202025-09-16%20at%2020.53.09.png)
+*Vista de perfil con aplicaciones añadidas*
+
+</div>
