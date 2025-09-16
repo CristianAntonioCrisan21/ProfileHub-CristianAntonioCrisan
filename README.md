@@ -62,8 +62,6 @@ Esto crea iconos del tamaño adecuado con esquinas redondeadas estilo macOS para
 
 <div align="center">
 
-![Interfaz Principal](Screenshot%202025-09-16%20at%2020.02.03.png)
-*Interfaz principal de ProfileHub*
 
 ![Gestión de Perfiles](Screenshot%202025-09-16%20at%2020.52.26.png)
 *Creación y gestión de perfiles*
