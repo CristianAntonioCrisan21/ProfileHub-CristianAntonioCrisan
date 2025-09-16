@@ -9,5 +9,6 @@ export interface Item {
 export interface Profile {
   id: string;
   name: string;
+  icon?: string; // Nombre del icono de Lucide
   items: Item[];
 }

@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ProfileHub
 
-## Getting Started
+Una aplicación de escritorio moderna para gestionar perfiles de trabajo con URLs y aplicaciones. Construida con Next.js y Electron.
 
-First, run the development server:
+## ✨ Características
+
+- **Gestión de Perfiles**: Crea y organiza diferentes perfiles de trabajo
+- **Lanzamiento Rápido**: Abre perfiles completos con todas las apps y URLs de una vez
+- **Selección Inteligente de Apps**: Navega y selecciona aplicaciones usando la integración nativa del Finder
+- **Interfaz Moderna**: Interfaz limpia y responsiva con soporte para tema oscuro/claro
+- **Experiencia Nativa**: App de escritorio con icono redondeado personalizado optimizado para el Dock de macOS
+
+## 🚀 Comenzar
+
+### Desarrollo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Instalar dependencias
+npm install
+
+# Ejecutar en modo desarrollo
+npm run dev:electron
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Construcción
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Construir app de Electron
+npm run build:electron
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Construir app de Next.js
+npm run build
+```
 
-## Learn More
+## 🛠 Stack Tecnológico
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Escritorio**: Electron
+- **Componentes UI**: Radix UI, Tailwind CSS
+- **Iconos**: Lucide React
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📱 Uso
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Crea perfiles de trabajo para diferentes contextos (Desarrollo, Trading, etc.)
+2. Añade URLs y aplicaciones a cada perfil
+3. Usa el botón "Buscar" para seleccionar apps a través del Finder
+4. Lanza perfiles completos con un solo clic
+5. Los elementos individuales pueden probarse antes de añadirlos a los perfiles
 
-## Deploy on Vercel
+## 🎨 Generación de Iconos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+La app incluye un script personalizado de generación de iconos que crea iconos redondeados optimizados para macOS:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Generar icono redondeado
+node create_rounded_icon.js
+```
+
+Esto crea iconos del tamaño adecuado con esquinas redondeadas estilo macOS para el Dock.
+
+
+INICIAR PROGRAMA
+npm run dev:electron
