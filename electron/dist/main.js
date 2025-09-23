@@ -42,33 +42,32 @@ function createWindow() {
 electron_1.app.whenReady().then(() => {
     // --- Configurar nombre de la app ---
     electron_1.app.setName("ProfileHub");
-    // --- Icono del Dock (macOS) ---
-    if (process.platform === "darwin" && electron_1.app.dock) {
-        // Usar el archivo .icns redondeado si existe, sino el PNG redondeado
-        const icnsPath = isDev
-            ? path_1.default.join(__dirname, "..", "..", "public", "icono.icns")
-            : getPublicAssetPath("icono.icns");
-        const roundedPngPath = isDev
-            ? path_1.default.join(__dirname, "..", "..", "public", "icono-rounded.png")
-            : getPublicAssetPath("icono-rounded.png");
-        const dockPngPath = (0, fs_1.existsSync)(roundedPngPath) ? roundedPngPath :
-            isDev ? path_1.default.join(__dirname, "..", "..", "public", "icono.png")
-                : getPublicAssetPath("icono.png");
-        console.log("[ProfileHub] Intentando cargar icono desde:", dockPngPath);
-        console.log("[ProfileHub] Archivo existe:", (0, fs_1.existsSync)(dockPngPath));
-        const img = electron_1.nativeImage.createFromPath(dockPngPath);
-        console.log("[ProfileHub] Icono cargado, isEmpty():", img.isEmpty());
-        if (!img.isEmpty()) {
-            // Redimensionar el icono al tamaño exacto del Dock (54px)
-            const dockSize = 54;
-            const resizedImg = img.resize({ width: dockSize, height: dockSize });
-            electron_1.app.dock.setIcon(resizedImg);
-            console.log("[ProfileHub] Icono redimensionado a", dockSize, "px y aplicado al dock desde:", dockPngPath);
-        }
-        else {
-            console.warn("[ProfileHub] Icono Dock vacío o no encontrado:", dockPngPath);
-        }
-    }
+    // // --- Icono del Dock (macOS) ---
+    // if (process.platform === "darwin" && app.dock) {
+    //   // Usar el archivo .icns redondeado si existe, sino el PNG redondeado
+    //   const icnsPath = isDev 
+    //     ? path.join(__dirname, "..", "..", "public", "icono.icns")
+    //     : getPublicAssetPath("icono.icns");
+    //   const roundedPngPath = isDev 
+    //     ? path.join(__dirname, "..", "..", "public", "icono-rounded.png")
+    //     : getPublicAssetPath("icono-rounded.png");
+    //   const dockPngPath = existsSync(roundedPngPath) ? roundedPngPath :
+    //                      isDev ? path.join(__dirname, "..", "..", "public", "icono.png")
+    //                            : getPublicAssetPath("icono.png");
+    //   console.log("[ProfileHub] Intentando cargar icono desde:", dockPngPath);
+    //   console.log("[ProfileHub] Archivo existe:", existsSync(dockPngPath));
+    //   const img = nativeImage.createFromPath(dockPngPath);
+    //   console.log("[ProfileHub] Icono cargado, isEmpty():", img.isEmpty());
+    //   if (!img.isEmpty()) {
+    //     // Redimensionar el icono al tamaño exacto del Dock (54px)
+    //     const dockSize = 54;
+    //     const resizedImg = img.resize({ width: dockSize, height: dockSize });
+    //     app.dock.setIcon(resizedImg);
+    //     console.log("[ProfileHub] Icono redimensionado a", dockSize, "px y aplicado al dock desde:", dockPngPath);
+    //   } else {
+    //     console.warn("[ProfileHub] Icono Dock vacío o no encontrado:", dockPngPath);
+    //   }
+    // }
     createWindow();
     electron_1.app.on("activate", () => {
         if (electron_1.BrowserWindow.getAllWindows().length === 0)
