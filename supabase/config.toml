@@ -1,0 +1,41 @@
+# Configuración de Supabase para ProfileHub
+
+[api]
+# Puerto para la API local de Supabase
+port = 54321
+# Esquemas a exponer en la API REST
+schemas = ["public"]
+# Configuración adicional de la API
+extra_search_path = ["public"]
+max_rows = 1000
+
+[db]
+# Puerto para la base de datos PostgreSQL local
+port = 54322
+# Configuración de la base de datos
+major_version = 15
+
+[studio]
+# Puerto para Supabase Studio (interfaz web)
+port = 54323
+
+[inbucket]
+# Puerto para el servidor de email local (para testing)
+port = 54324
+
+[storage]
+# Configuración de almacenamiento de archivos
+file_size_limit = "50MiB"
+
+[auth]
+# Configuración de autenticación
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://localhost:3000"]
+jwt_expiry = 3600
+enable_signup = true
+
+[auth.email]
+# Configuración de email para autenticación
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false

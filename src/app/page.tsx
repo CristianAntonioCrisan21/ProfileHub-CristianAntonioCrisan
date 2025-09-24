@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState, useCallback } from "react";
-import type { Profile, Item, ItemType } from "@/types/profile";
-import { loadProfiles, saveProfiles } from "@/lib/storage";
+import { useMemo, useState } from "react";
+// Tipos importados por los hooks
+import { useProfiles } from "@/hooks/useProfiles";
+import { useProfileItems } from "@/hooks/useProfileItems";
 import { ProfileList } from "./profileList";
 import { NewProfileForm } from "./newProfileForm";
 import { AddItemForm } from "./addItemForm";
@@ -23,107 +24,70 @@ import {
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { SyncIndicator } from "@/components/sync-status";
 
 export default function Home() {
-  const [profiles, setProfiles] = useState<Profile[]>([]);
   const [currentId, setCurrentId] = useState<string | null>(null);
+  
+  const {
+    profiles,
+    isLoading,
+    isSyncing,
+    error,
+    addProfile: addProfileHook,
+    updateProfile,
+    deleteProfile: deleteProfileHook
+  } = useProfiles();
 
   const current = useMemo(
     () => profiles.find((p) => p.id === currentId) ?? null,
     [profiles, currentId]
   );
+  
+  const {
+    addItem,
+    removeItem,
+    openItem,
+    openAllItems
+  } = useProfileItems({ profile: current, updateProfile });
 
-  useEffect(() => {
-    const data = loadProfiles();
-    setProfiles(data);
-    setCurrentId(data[0]?.id ?? null);
-  }, []);
-
-  useEffect(() => {
-    saveProfiles(profiles);
-  }, [profiles]);
+  // Actualizar currentId cuando se cargan los perfiles
+  if (!currentId && profiles.length > 0 && !isLoading) {
+    setCurrentId(profiles[0].id);
+  }
 
   // CRUD perfiles
-  const addProfile = useCallback((name: string, icon: string) => {
-    const n = name.trim();
-    if (!n) return;
-    const p: Profile = { id: crypto.randomUUID(), name: n, icon, items: [] };
-    setProfiles((ps) => [...ps, p]);
-    setCurrentId(p.id);
-  }, []);
+  const addProfile = (name: string, icon: string) => {
+    addProfileHook(name, icon);
+    // El nuevo perfil se seleccionará automáticamente cuando se actualice la lista
+  };
 
-  const renameProfile = useCallback((id: string, name: string) => {
-    setProfiles((ps) => ps.map((p) => (p.id === id ? { ...p, name } : p)));
-  }, []);
+  const renameProfile = (id: string, name: string) => {
+    updateProfile(id, { name });
+  };
 
-  const deleteProfile = useCallback(
-    (id: string) => {
-      setProfiles((ps) => ps.filter((p) => p.id !== id));
-      if (currentId === id) setCurrentId(null);
-    },
-    [currentId]
-  );
-
-  // CRUD items
-  const addItem = useCallback(
-    (type: ItemType, value: string) => {
-      if (!current) return;
-      const v = value.trim();
-      if (!v) return;
-      const item: Item = { id: crypto.randomUUID(), type, value: v };
-      setProfiles((ps) =>
-        ps.map((p) =>
-          p.id === current.id ? { ...p, items: [...p.items, item] } : p
-        )
-      );
-    },
-    [current]
-  );
-
-  const removeItem = useCallback(
-    (itemId: string) => {
-      if (!current) return;
-      setProfiles((ps) =>
-        ps.map((p) =>
-          p.id === current.id
-            ? { ...p, items: p.items.filter((i) => i.id !== itemId) }
-            : p
-        )
-      );
-    },
-    [current]
-  );
-
-  // Abrir un item
-  const openItem = useCallback(async (it: Item) => {
-    if (it.type === "url") {
-      await window.native?.openUrl(it.value);
-    } else {
-      await window.native?.openApp(it.value);
+  const deleteProfile = (id: string) => {
+    deleteProfileHook(id);
+    if (currentId === id) {
+      setCurrentId(profiles.length > 1 ? profiles.find(p => p.id !== id)?.id || null : null);
     }
-  }, []);
+  };
 
   // Abrir todo el perfil
-  const openProfile = useCallback(async (p: Profile) => {
-    const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
-    for (const it of p.items) {
-      if (it.type === "url") {
-        await window.native?.openUrl(it.value);
-      } else {
-        await window.native?.openApp(it.value);
-      }
-      await delay(120);
+  const openProfile = () => {
+    if (current) {
+      openAllItems();
     }
-  }, []);
+  };
 
   return (
     <div className="mx-auto max-w-6xl p-6 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold tracking-tight">ProfileHub</h1>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-4">
+          <SyncIndicator isSyncing={isSyncing} error={error} />
           <ThemeToggle />
         </div>
       </div>
@@ -141,7 +105,14 @@ export default function Home() {
 
         {/* Detalle */}
         <main className="col-span-12 md:col-span-9 space-y-4">
-          {!current ? (
+          {isLoading ? (
+            <Card className="p-6 text-center">
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                <span>Cargando perfiles...</span>
+              </div>
+            </Card>
+          ) : !current ? (
             <Card className="p-6 text-center text-gray-500">
               Crea o selecciona un perfil 👈
             </Card>
@@ -156,7 +127,7 @@ export default function Home() {
                 />
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button onClick={() => openProfile(current)}>
+                    <Button onClick={openProfile}>
                       Abrir perfil
                     </Button>
                   </TooltipTrigger>

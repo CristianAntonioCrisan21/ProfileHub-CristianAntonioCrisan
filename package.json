@@ -12,7 +12,8 @@
     "build:electron": "tsc -p tsconfig.electron.json",
     "watch:electron": "tsc -w -p tsconfig.electron.json",
     "dev:electron": "concurrently -k -p \"[{name}]\" -n NEXT,TS,ELEC -c auto \"next dev --turbopack\" \"tsc -w -p tsconfig.electron.json\" \"wait-on http-get://localhost:3000 file:electron/dist/main.js && electron electron/dist/main.js\"",
-    "electron:dev": "wait-on http-get://localhost:3000 file:electron/dist/main.js && electron electron/dist/main.js"
+    "electron:dev": "wait-on http-get://localhost:3000 file:electron/dist/main.js && electron electron/dist/main.js",
+    "setup:supabase": "node scripts/setup-supabase.mjs"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",
@@ -23,6 +24,7 @@
     "@radix-ui/react-separator": "^1.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tooltip": "^1.2.8",
+    "@supabase/supabase-js": "^2.57.4",
     "canvas": "^3.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

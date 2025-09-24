@@ -1,75 +1,87 @@
 # ProfileHub
 
-Una aplicación de escritorio moderna para gestionar perfiles de trabajo con URLs y aplicaciones. Construida con Next.js y Electron.
+**Una aplicación de escritorio que organiza tu flujo de trabajo**
 
-## ✨ Características
+ProfileHub te permite crear perfiles personalizados que agrupan todas las aplicaciones y sitios web que necesitas para diferentes contextos de trabajo. Con un solo clic, abre todo lo que necesitas para ser productivo.
 
-- **Gestión de Perfiles**: Crea y organiza diferentes perfiles de trabajo
-- **Lanzamiento Rápido**: Abre perfiles completos con todas las apps y URLs de una vez
-- **Selección Inteligente de Apps**: Navega y selecciona aplicaciones usando la integración nativa del Finder
-- **Interfaz Moderna**: Interfaz limpia y responsiva con soporte para tema oscuro/claro
-- **Experiencia Nativa**: App de escritorio con icono redondeado personalizado optimizado para el Dock de macOS
+## 💡 ¿Para qué sirve?
 
-## 🚀 Comenzar
+Imagina que trabajas en diferentes proyectos o contextos:
+- **Desarrollo**: VS Code, Terminal, GitHub, Stack Overflow
+- **Trading**: TradingView, broker, noticias financieras, calculadora
+- **Diseño**: Figma, Adobe Creative Suite, Dribbble, Pinterest
+- **Reuniones**: Zoom, calendario, notas, Slack
 
-### Desarrollo
+En lugar de abrir manualmente cada aplicación y sitio web cada vez, ProfileHub los agrupa en **perfiles** que puedes lanzar instantáneamente.
 
-```bash
-# Instalar dependencias
-npm install
+## ✨ Características Principales
 
-# Ejecutar en modo desarrollo
-npm run dev:electron
-```
+### 🎯 **Perfiles Inteligentes**
+Crea perfiles temáticos que agrupan aplicaciones y URLs relacionadas. Cada perfil puede contener:
+- Aplicaciones nativas (Photoshop, VS Code, Calculator...)
+- Sitios web (GitHub, Gmail, TradingView...)
+- Archivos y carpetas específicas
 
-### Construcción
+### ⚡ **Lanzamiento Instantáneo**
+- **Un clic = Todo abierto**: Lanza perfiles completos automáticamente
+- **Prueba individual**: Testa cada elemento antes de agregarlo al perfil
+- **Apertura secuencial**: Las aplicaciones se abren con pequeñas pausas para evitar sobrecargar el sistema
 
-```bash
-# Construir app de Electron
-npm run build:electron
+### 🎨 **Interfaz Moderna**
+- Diseño limpio y minimalista
+- Tema oscuro/claro automático
+- Iconos personalizables para cada perfil
+- Experiencia nativa de macOS
 
-# Construir app de Next.js
-npm run build
-```
+### ☁️ **Sincronización en la Nube** *(Opcional)*
+- Datos sincronizados automáticamente con Supabase
+- Funciona completamente offline
+- Accede a tus perfiles desde cualquier dispositivo
 
-## 🛠 Stack Tecnológico
+## 🛠️ Tecnología
 
-- **Frontend**: Next.js 15, React 19, TypeScript
-- **Escritorio**: Electron
-- **Componentes UI**: Radix UI, Tailwind CSS
-- **Iconos**: Lucide React
-
-## 📱 Uso
-
-1. Crea perfiles de trabajo para diferentes contextos (Desarrollo, Trading, etc.)
-2. Añade URLs y aplicaciones a cada perfil
-3. Usa el botón "Buscar" para seleccionar apps a través del Finder
-4. Lanza perfiles completos con un solo clic
-5. Los elementos individuales pueden probarse antes de añadirlos a los perfiles
-
-## 🎨 Generación de Iconos
-
-La app incluye un script personalizado de generación de iconos que crea iconos redondeados optimizados para macOS:
-
-```bash
-# Generar icono redondeado
-node create_rounded_icon.js
-```
-
-Esto crea iconos del tamaño adecuado con esquinas redondeadas estilo macOS para el Dock.
+Construida con tecnologías modernas para máximo rendimiento:
+- **Next.js 15** + **React 19** para la interfaz
+- **Electron** para la experiencia de escritorio nativa
+- **TypeScript** para código robusto y mantenible
+- **Tailwind CSS** + **Radix UI** para componentes elegantes
+- **Supabase** para sincronización opcional en la nube
 
 ## 📸 Capturas de Pantalla
 
 <div align="center">
 
-
 ![Gestión de Perfiles](Screenshot%202025-09-16%20at%2020.52.26.png)
-*Creación y gestión de perfiles*
+*Interfaz principal - Creación y gestión de perfiles*
 
 ![Selección de Apps](Screenshot%202025-09-16%20at%2020.52.43.png)
-*Botón buscar para seleccionar aplicaciones*
+*Selector nativo de aplicaciones integrado con el Finder*
 
 ![Perfil Completo](Screenshot%202025-09-16%20at%2020.53.09.png)
-*Vista de perfil con aplicaciones añadidas*
+*Vista de perfil configurado con aplicaciones y URLs*
 
 </div>
+
+---
+
+## 🎯 Casos de Uso Reales
+
+**Para Desarrolladores:**
+- Perfil "Frontend": VS Code, Chrome DevTools, Figma, localhost:3000
+- Perfil "Backend": Terminal, Postman, Base de datos, documentación API
+
+**Para Traders:**
+- Perfil "Trading": TradingView, broker, noticias, calculadora, Excel
+- Perfil "Análisis": Python/R, gráficos, research, calendario económico
+
+**Para Diseñadores:**
+- Perfil "UI/UX": Figma, Adobe XD, Dribbble, paletas de colores
+- Perfil "Branding": Illustrator, Photoshop, referencias, tipografías
+
+**Para Estudiantes:**
+- Perfil "Estudio": Notion, PDFs, videos, música de concentración
+- Perfil "Investigación": Google Scholar, bibliotecas, referencias
+
+---
+
+*ProfileHub - Organiza tu flujo de trabajo, maximiza tu productividad* ⚡
