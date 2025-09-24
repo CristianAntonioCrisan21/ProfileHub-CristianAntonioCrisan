@@ -5,6 +5,7 @@ const electron_1 = require("electron");
 const api = {
     openUrl: (url) => electron_1.ipcRenderer.invoke("open:url", url),
     openApp: (pathOrId, args = []) => electron_1.ipcRenderer.invoke("open:app", pathOrId, args),
+    selectApp: () => electron_1.ipcRenderer.invoke("select:app"),
 };
 // Exponer la API al contexto principal usando la variable api
 electron_1.contextBridge.exposeInMainWorld("native", api);

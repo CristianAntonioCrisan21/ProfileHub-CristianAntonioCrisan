@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-// Tipos importados por los hooks
 import { useProfiles } from "@/hooks/useProfiles";
 import { useProfileItems } from "@/hooks/useProfileItems";
 import { ProfileList } from "./profileList";
