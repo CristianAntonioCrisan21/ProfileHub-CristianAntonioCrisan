@@ -1,68 +1,27 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Profile } from '@/types/profile';
-import { 
-  loadProfiles, 
-  saveProfiles, 
-  syncProfiles, 
-  saveProfilesToSupabase 
-} from '@/lib/storage';
+import { loadProfiles, saveProfiles } from '@/lib/storage';
 
 interface UseProfilesReturn {
   profiles: Profile[];
   isLoading: boolean;
-  isSyncing: boolean;
-  error: string | null;
   addProfile: (name: string, icon?: string) => void;
   updateProfile: (id: string, updates: Partial<Profile>) => void;
   deleteProfile: (id: string) => void;
-  refreshProfiles: () => Promise<void>;
+  refreshProfiles: () => void;
 }
 
 export function useProfiles(): UseProfilesReturn {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isSyncing, setIsSyncing] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   // Cargar perfiles inicialmente
-  const loadInitialProfiles = useCallback(async () => {
+  const loadInitialProfiles = useCallback(() => {
     setIsLoading(true);
-    setError(null);
-    
-    try {
-      const data = await syncProfiles();
-      setProfiles(data);
-    } catch (err) {
-      console.error('Error loading profiles:', err);
-      setError('Error al cargar los perfiles');
-      // Fallback a localStorage
-      const localData = loadProfiles();
-      setProfiles(localData);
-    } finally {
-      setIsLoading(false);
-    }
+    const data = loadProfiles();
+    setProfiles(data);
+    setIsLoading(false);
   }, []);
-
-  // Guardar perfiles (con sincronización)
-  const saveProfilesWithSync = useCallback(async (newProfiles: Profile[]) => {
-    if (newProfiles.length === 0 || isLoading) return;
-    
-    setIsSyncing(true);
-    setError(null);
-    
-    try {
-      // Guardar en localStorage inmediatamente
-      saveProfiles(newProfiles);
-      // Intentar sincronizar con Supabase
-      await saveProfilesToSupabase(newProfiles);
-    } catch (err) {
-      console.error('Error syncing profiles:', err);
-      setError('Error al sincronizar con la nube');
-      // localStorage ya se guardó, así que los datos están seguros
-    } finally {
-      setIsSyncing(false);
-    }
-  }, [isLoading]);
 
   // Efecto para cargar datos inicialmente
   useEffect(() => {
@@ -72,9 +31,9 @@ export function useProfiles(): UseProfilesReturn {
   // Efecto para guardar cambios automáticamente
   useEffect(() => {
     if (profiles.length > 0 && !isLoading) {
-      saveProfilesWithSync(profiles);
+      saveProfiles(profiles);
     }
-  }, [profiles, isLoading, saveProfilesWithSync]);
+  }, [profiles, isLoading]);
 
   // Funciones CRUD
   const addProfile = useCallback((name: string, icon?: string) => {
@@ -105,15 +64,13 @@ export function useProfiles(): UseProfilesReturn {
     setProfiles(prev => prev.filter(profile => profile.id !== id));
   }, []);
 
-  const refreshProfiles = useCallback(async () => {
-    await loadInitialProfiles();
+  const refreshProfiles = useCallback(() => {
+    loadInitialProfiles();
   }, [loadInitialProfiles]);
 
   return {
     profiles,
     isLoading,
-    isSyncing,
-    error,
     addProfile,
     updateProfile,
     deleteProfile,

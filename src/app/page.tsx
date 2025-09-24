@@ -26,7 +26,6 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { SyncIndicator } from "@/components/sync-status";
 
 export default function Home() {
   const [currentId, setCurrentId] = useState<string | null>(null);
@@ -34,8 +33,6 @@ export default function Home() {
   const {
     profiles,
     isLoading,
-    isSyncing,
-    error,
     addProfile: addProfileHook,
     updateProfile,
     deleteProfile: deleteProfileHook
@@ -87,7 +84,6 @@ export default function Home() {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold tracking-tight">ProfileHub</h1>
         <div className="flex items-center gap-4">
-          <SyncIndicator isSyncing={isSyncing} error={error} />
           <ThemeToggle />
         </div>
       </div>
